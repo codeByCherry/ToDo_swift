@@ -34,7 +34,7 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         
         let cellNib = UINib(nibName: "TodoItemCell", bundle: nil)
         
-        self.tableView.register(cellNib, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(cellNib, forCellReuseIdentifier: cellIdentifier)
         
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -42,6 +42,7 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         
         
     }
+    
     // TODO:: 2 构建 Navigation Controller， Title ：ToDoey
 
     
@@ -55,7 +56,7 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier:self.cellIdentifier, for: indexPath) as! TodoItemCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:cellIdentifier, for: indexPath) as! TodoItemCell
         
         cell.textLabel?.text = todoItems[indexPath.row]
         
@@ -63,5 +64,10 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        
+        return 1
+    }
     
 }
