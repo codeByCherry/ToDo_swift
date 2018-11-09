@@ -93,4 +93,47 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
+    
+    // MARK:- Add new item(IBAction)
+    
+    @IBAction func addItemPressed(_ sender: Any) {
+        
+        let alert = UIAlertController(title: "添加备忘录", message: nil, preferredStyle: .alert)
+        
+        alert.addTextField { (userInputTextField) in
+            
+            userInputTextField.placeholder = "请输入待办事项"
+            
+        }
+        
+        let addItemAction = UIAlertAction(title: "确定", style: .default) {
+            (action) in
+            // TODO:: 打印 输入框的内容
+            if let userInput = alert.textFields?.first?.text {
+                
+                if userInput.count > 0 {
+                    print("User input:\(userInput)")
+                } else {
+                    print("input is empty.")
+                }
+                
+            } else {
+                print("user input nothing")
+            }
+            
+        }
+        
+        alert.addAction(addItemAction)
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    // What will happen once the user clicks the add item button on our alert
+    
+    
+    
 }

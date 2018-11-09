@@ -35,7 +35,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Todoey" id="Jqb-k4-Ks6"/>
+                    <navigationItem key="navigationItem" title="Todoey" id="Jqb-k4-Ks6">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dq4-30-NnH">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addItemPressed:" destination="BYZ-38-t0r" id="HlK-KJ-r9c"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="la2-SN-Lc4" id="6Sc-rV-1xN"/>
                     </connections>
