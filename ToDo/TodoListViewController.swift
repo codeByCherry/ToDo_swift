@@ -29,7 +29,7 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
     
     // MARK:- TODOS
     
-    // TODO:: 1 构建自定义cell ToDoItemCell
+
     func setupTableView() {
         
         let cellNib = UINib(nibName: "TodoItemCell", bundle: nil)
@@ -43,8 +43,7 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         
     }
     
-    // TODO:: 2 构建 Navigation Controller， Title ：ToDoey
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -53,12 +52,18 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier:cellIdentifier, for: indexPath) as! TodoItemCell
         
         cell.textLabel?.text = todoItems[indexPath.row]
+        
+        if let _ = cell.selectedBackgroundView {
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: 1, height: 1))
+            view.backgroundColor = UIColor.init(white: 0.9, alpha: 0.9)
+            cell.selectedBackgroundView = view
+        }
+        
         
         return cell
         
@@ -68,6 +73,24 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         
         return 1
+        
+    }
+    
+    
+    // MARK:- TableView Delegate Methods
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        if cell?.accessoryType == .checkmark {
+            cell?.accessoryType = .none
+        } else {
+            cell?.accessoryType = .checkmark
+        }
+        
     }
     
 }
