@@ -11,7 +11,7 @@ import UIKit
 class TodoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
-    let todoItems = ["go to school", "play ps4" ]
+    var todoItems = [String]()
     
     let cellIdentifier = "TodoItemCell"
     
@@ -22,10 +22,18 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadData()
+        
         setupTableView()
         
     }
     
+    
+    func loadData() {
+        
+        todoItems = ["go to school", "play ps4" ]
+        
+    }
     
     // MARK:- TODOS
     
@@ -109,16 +117,16 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         let addItemAction = UIAlertAction(title: "确定", style: .default) {
             (action) in
             // TODO:: 打印 输入框的内容
-            if let userInput = alert.textFields?.first?.text {
+            if let userInput = alert.textFields?.first?.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
                 
                 if userInput.count > 0 {
-                    print("User input:\(userInput)")
+                    self.addTodoItemAndUpdateUI(itemTitle: userInput)
                 } else {
-                    print("input is empty.")
+                    self.showInputPromptAlert()
                 }
                 
             } else {
-                print("user input nothing")
+                fatalError("没后获取到输入框")
             }
             
         }
@@ -130,6 +138,30 @@ class TodoListViewController: UIViewController, UITableViewDelegate, UITableView
         alert.addAction(cancelAction)
         
         present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
+    func showInputPromptAlert() {
+        
+        let alert = UIAlertController(title: "提示", message: "保存内容不能是空白字符串", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "确定", style: .cancel, handler: nil)
+        
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
+    func addTodoItemAndUpdateUI(itemTitle:String) {
+        
+        todoItems.append(itemTitle)
+        
+        let newIndexPath = IndexPath(row: todoItems.count-1, section: 0)
+        
+        self.tableView.insertRows(at: [newIndexPath], with: .fade)
         
     }
     // What will happen once the user clicks the add item button on our alert
